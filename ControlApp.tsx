@@ -213,8 +213,8 @@ const ControlApp = () => {
 
                     (connected) ?
                         <View style={{ alignItems: 'center' }}>
-                            <View style={{ marginTop: '20%', marginBottom: "10%" }}>
-                                <Text style={{ fontSize: 25, fontWeight: 'bold' }}>Connected</Text>
+                            <View style={{ marginTop: '5%', marginBottom: "10%" }}>
+                                <Text style={{ fontSize: 25, fontWeight: 'bold', color:'black'}}>Connected</Text>
                             </View>
 
 
@@ -273,7 +273,7 @@ const ControlApp = () => {
 
                             <TouchableOpacity
                                 style={{ width: '90%', backgroundColor: '#dc3545', margin: 10, padding: 15, borderRadius: 20, elevation: 10 }}
-                                onPress={()=> {
+                                onPress={() => {
                                     disconnect(name);
                                     setPaired(false)
                                     setName("");
