@@ -242,7 +242,7 @@ const HomeApp = () => {
                     resizeMode: 'contain'
                 }} source={require('./images/89361.jpg')} />
             </View>
-            <Text style={{fontSize: 20, fontWeight:'bold', margin: '5%'}}>{name}</Text>
+            <Text style={{fontSize: 20, fontWeight:'bold', margin: '5%', color:"black"}}>{name}</Text>
             <TouchableOpacity style={{
                 width: "50%",
                 margin: 20, padding: '5%', borderRadius: 4,

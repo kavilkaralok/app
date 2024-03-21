@@ -17,6 +17,7 @@ const ControlApp = () => {
     const isFocused = useIsFocused();
     console.log(isFocused);
     var s = "";
+    const [buttonColor, setButtonColor] = useState({ no: "null", color: '#ff0000' });
 
     useEffect(() => {
         const listeners = [
@@ -36,6 +37,14 @@ const ControlApp = () => {
                 const val = await AsyncStorage.getItem("@app:id");
                 console.log(val);
                 const paired = await AsyncStorage.getItem("@app:paired");
+
+                const buttonNo = await AsyncStorage.getItem("@app:buttonno");
+
+                if(buttonNo !== null)
+                {
+                    console.log("Color of button is ", buttonColor);
+                    setButtonColor({no: buttonNo, color: "#ff0000"});
+                }
 
                 if (paired !== null && paired !== "false") {
                     setPaired(true)
@@ -214,20 +223,27 @@ const ControlApp = () => {
                     (connected) ?
                         <View style={{ alignItems: 'center' }}>
                             <View style={{ marginTop: '5%', marginBottom: "10%" }}>
-                                <Text style={{ fontSize: 25, fontWeight: 'bold', color:'black'}}>Connected</Text>
+                                <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'black' }}>Connected</Text>
                             </View>
 
 
                             <View style={{ display: 'flex', flexDirection: 'row' }}>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(1) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "1" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { 
+                                        senddata(1); 
+                                        setButtonColor({ no: "1", color: '#ff0000' }) ;
+                                        AsyncStorage.setItem("@app:buttonno", "1");
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>1</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(4) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "2" ? buttonColor.color : '#007bff',  margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { senddata(4); 
+                                        setButtonColor({ no: "2", color: '#ff0000' });
+                                        AsyncStorage.setItem("@app:buttonno", "2"); 
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>2</Text>
                                 </TouchableOpacity>
@@ -235,14 +251,22 @@ const ControlApp = () => {
 
                             <View style={{ display: 'flex', flexDirection: 'row' }}>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(5) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "A" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { 
+                                        senddata(5);
+                                        setButtonColor({ no: "A", color: '#ff0000' });
+                                        AsyncStorage.setItem("@app:buttonno", "A"); 
+                                     }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>A</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20, elevation: 10 }}
-                                    onPress={() => { senddata(6) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "B" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20, elevation: 10 }}
+                                    onPress={() => { 
+                                        senddata(6);
+                                        setButtonColor({ no: "B", color: '#ff0000' });
+                                        AsyncStorage.setItem("@app:buttonno", "B");  
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>B</Text>
                                 </TouchableOpacity>
@@ -250,22 +274,35 @@ const ControlApp = () => {
 
                             <View style={{ display: 'flex', flexDirection: 'row' }}>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(7) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "C" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { 
+                                        senddata(7);
+                                        setButtonColor({ no: "C", color: '#ff0000' });
+                                        AsyncStorage.setItem("@app:buttonno", "C"); 
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>C</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{ display: 'flex', flexDirection: 'row' }}>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(9) }}
+                                    style={{ width: '45%',backgroundColor: buttonColor.no == "Mute" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { 
+                                        senddata(9);
+                                        setButtonColor({ no: "Mute", color: '#ff0000' });
+                                        AsyncStorage.setItem("@app:buttonno", "Mute");  
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>Mute</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    style={{ width: '45%', backgroundColor: '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
-                                    onPress={() => { senddata(8) }}
+                                    style={{ width: '45%', backgroundColor: buttonColor.no == "Scan" ? buttonColor.color : '#007bff', margin: 10, padding: 15, borderRadius: 20 }}
+                                    onPress={() => { 
+                                        senddata(8);
+                                        const button = buttonColor.no;
+                                        console.log(button);
+                                        
+                                    }}
                                 >
                                     <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>Scan</Text>
                                 </TouchableOpacity>
@@ -275,11 +312,11 @@ const ControlApp = () => {
                                 style={{ width: '90%', backgroundColor: '#dc3545', margin: 10, padding: 15, borderRadius: 20, elevation: 10 }}
                                 onPress={() => {
                                     disconnect(name);
-                                    setPaired(false)
+                                    setPaired(false);
                                     setName("");
                                     AsyncStorage.setItem("@app:id", "null");
                                     AsyncStorage.setItem("@app:name", "null");
-                                    AsyncStorage.setItem("@app:paired", "false")
+                                    AsyncStorage.setItem("@app:paired", "false");
                                 }}
                             >
                                 <Text style={{ color: "white", fontSize: 20, textAlign: 'center', fontFamily: 'Arial', }}>Disconnect</Text>
@@ -289,13 +326,13 @@ const ControlApp = () => {
                         :
                         <View style={{ alignItems: 'center' }}>
                             <View style={{ margin: '20%' }}>
-                                <Text style={{ fontSize: 25 }}>Disconnected.</Text>
+                                <Text style={{ fontSize: 25, color: "black" }}>Disconnected</Text>
                             </View>
                         </View>
                     :
                     <View style={{ alignItems: 'center' }}>
                         <View style={{ margin: '20%' }}>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Please pair the device.</Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: "black" }}>Please pair the device.</Text>
                         </View>
                     </View>
             }
